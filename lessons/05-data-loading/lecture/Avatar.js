@@ -20,8 +20,40 @@ import ProgressCircle from 'app/ProgressCircle'
 // so we can calculate the rings on their avatar, right now, it's just empty.
 
 export default function Avatar({ uid, size = 50, bg, className, ...rest }) {
-  const user = null
-  const posts = null
+  const [user, setUser] = useState(null)
+
+  // Unmounted, causes errors and memory-leak
+  // useEffect(() => {
+  //   fetchUser(uid).then(user => {
+  //     setUser(user)
+  //   })
+  // }, [iud])
+
+  useEffect(() => {
+    let current = true
+
+    fetchUser(uid).then(user => { // async
+      if (current) setUser(user)
+    })
+
+    return () => { // clean-up function: cancel async/fetch, unsubscribe, clear intervals...
+      current = false
+    }
+  }, [iud])
+
+  const [posts, setPosts] = useState(null)
+
+  useEffect(() => {
+    const unsubscribe = subscribeToPosts(uid, posts => { // setup subscription for a user's posts, API contains a cancel function
+      setPosts(posts)
+    })
+
+    return unsubscribe // When you unmount, stop the subscription
+  }, [uid]) // Only run when the uid changes, cancel previous subscription, setup new subscription
+
+  // Shortened verstion for the above:
+  // const [posts, setPosts] = setState(null)
+  // useEffect(() => subscribeToPosts(uis, setPosts), [uid])
 
   if (!user) {
     return (

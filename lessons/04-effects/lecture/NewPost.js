@@ -1,4 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react'
+// useRef - get a "ref"erence to an object accross renders
+// useEffect - effect is like a side-effect on the DOM (other things its doing when it renders)
+//    - fetch some data
+//    - scroll the page
+//    - save something to local storage
+//    - side effects of the state updating
+// Can't use Hooks inside a class component, only functional componenets and custom Hooks
+// Use the React debugger extension for Chrome to manually tweak props and such
+// useEffct has a second array that tells the effect what to listen to for updates instead of running on every render
+//    - IE if prop (date) changes instead of state we're wanting (message), we don't need to re-run the side effect because it hasn't changed
+// Effects can be bundled into a function so it can be reused multiple times, kind of like a custom Hook
+//    - Custom Hooks must start with 'use' keyword or React gets mad at you
 import { FaDumbbell } from 'react-icons/fa'
 
 import { useAppState } from 'app/app-state'
@@ -13,14 +25,21 @@ const MAX_MESSAGE_LENGTH = 200
 // Consider the message length counter. Every time we type, we set state, and
 // then react updates the DOM for us.
 
-export default function NewPost({ takeFocus, date, onSuccess, showAvatar }) {
+export default function NewPost({ takeFocus, date, onSuccess, showAvatar }) { // whole function is kind of like your renderer
   const [{ auth }] = useAppState()
   const [message, setMessage] = useState('Ran around the lake.')
   const messageTooLong = message.length > MAX_MESSAGE_LENGTH
+  const messageLengthRef = useRef()
 
   function handleMessageChange(event) {
     setMessage(event.target.value)
   }
+
+  useEffect(() => {
+    console.log("update the title")
+    document.title = "New Post" + (mesage ? `: ${message}` : '')
+  }, [message]) // basically a data dependency for the Hook
+  // empty array means it only runs on the initial render, since nothing in the array ever changes
 
   return (
     <div className={'NewPost' + (messageTooLong ? ` ${errorClass}` : '')}>
@@ -33,7 +52,7 @@ export default function NewPost({ takeFocus, date, onSuccess, showAvatar }) {
           onChange={handleMessageChange}
         />
         <div className="NewPost_char_count">
-          <span>{message.length}</span>/{MAX_MESSAGE_LENGTH}
+          <span ref={messageLengthRef}></span>/{MAX_MESSAGE_LENGTH}
         </div>
         <RecentPostsDropdown
           uid={auth.uid}

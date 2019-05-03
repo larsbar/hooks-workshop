@@ -8,8 +8,26 @@ import { login } from "app/utils"
 // export default LoginFormFinal
 
 export default function LoginForm() {
+  
+  const [checked, setChecked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSetChecked = () => setChecked(!checked);
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    const form = event.target
+    const[emailNode, passwordNode] = form.elements
+    setIsLoading(true);
+    login(emailNode.value, passwordNode.value).then((
+      setIsLoading(false)
+    ))
+
+  }
+
   return (
-    <form>
+
+    <form onSubmit={handleSubmit}>
       <VisuallyHidden>
         <label htmlFor="login:email">Email:</label>
       </VisuallyHidden>
@@ -25,8 +43,9 @@ export default function LoginForm() {
       </VisuallyHidden>
       <input
         id="login:password"
-        type="password"
         className="inputField"
+        type={checked ? 'text' : 'password'}
+        // type="password"
         placeholder="Password"
       />
 
@@ -35,7 +54,8 @@ export default function LoginForm() {
           <input
             className="passwordCheckbox"
             type="checkbox"
-            defaultChecked={false}
+            defaultChecked={checked}
+            onClick={handleSetChecked}
           />{" "}
           show password
         </label>
@@ -43,7 +63,7 @@ export default function LoginForm() {
 
       <TabsButton>
         <FaSignInAlt />
-        <span>Login</span>
+        <span>{isLoading ? "Loading..." : "Login"}</span>
       </TabsButton>
     </form>
   )

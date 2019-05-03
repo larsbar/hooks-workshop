@@ -1,6 +1,6 @@
 import "./styles.css"
-import React from "react"
-import ReactDOM from "react-dom"
+import React from "react" // how to build the UI (like the HTML)
+import ReactDOM from "react-dom" // actually renders the UI (like the browser that shows it)
 
 /**********************************************************/
 // We like React because:
@@ -16,6 +16,7 @@ import ReactDOM from "react-dom"
 
 // // and away we go!
 // ReactDOM.render(reactElement, domElement)
+// ReactDOM.render(renderThisReactElement, intoThatDomElement)
 
 /**********************************************************/
 // This html looking syntax in JavaSCript is called JSX, and it’s special to
@@ -36,10 +37,12 @@ import ReactDOM from "react-dom"
 // are the children
 
 // const reactElement = React.createElement(
-//   "button",
-//   { className: "icon_button cta" },
-//   "+"
+//   "button",  // what it is
+//   { className: "icon_button cta" }, // html props 
+//   "+" // children
 // )
+
+// createElement is public API, so you can use it anywhere isntead of JSX
 
 // const domElement = document.getElementById("root")
 // ReactDOM.render(reactElement, domElement)
@@ -54,7 +57,7 @@ import ReactDOM from "react-dom"
 //   "+",
 //   React.createElement(
 //     "span",
-//     { style: { fontWeight: "bold", marginLeft: "5px" } },
+//     { style: { fontWeight: "bold", marginLeft: "5px" } }, // style is special
 //     "Add"
 //   )
 // )
@@ -99,12 +102,12 @@ import ReactDOM from "react-dom"
 
 /**********************************************************/
 // Now, check this out, you can wrap up a bunch of elements inside of what's
-// called a "component" like <FaPlus/>. That thing is a ton of SVG.
+// called a "component" like <FaPlus/>. That thing is a ton of SVG. // react-icons/fa, pulls in fontawesome
 
 // const getTitle = () => "Add"
 // const reactElement = (
-//   <button className="icon_button cta">
-//     <FaPlus />
+//   <button className="icon_button cta"> // host component, from browser
+//     <FaPlus /> // component, user generated
 //     <span style={{ fontWeight: "bold", marginLeft: "5px" }}>{getTitle()}</span>
 //   </button>
 // )
@@ -115,15 +118,15 @@ import ReactDOM from "react-dom"
 /**********************************************************/
 // Let's turn our button into a component and remove some stuff
 
-// const Button = () => (
+// const Button = () => ( // capitalized name
 //   <button className="icon_button">
 //     <FaPlus />
-//     <span>Add</span>
+//     <span>Add</span> // or it could be and declare it below <span>{props.text}</span>
 //   </button>
 // )
 
 // const domElement = document.getElementById("root")
-// ReactDOM.render(<Button />, domElement)
+// ReactDOM.render(<Button />, domElement) // ReactDOM.render(<Button text="Maybe it's translated"/>, domElement)
 
 /**********************************************************/
 // One thing that makes components great is that they're reusable, they are the
@@ -133,7 +136,7 @@ import ReactDOM from "react-dom"
 // function Button(props) {
 //   return (
 //     <button className="icon_button">
-//       {props.children}
+//       {props.children} // The only difference between children and other props is you can pass it by name, but you can also pass it by putting them in the actual element
 //     </button>
 //   )
 // }

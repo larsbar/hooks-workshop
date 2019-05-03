@@ -24,5 +24,13 @@ import { DateFields, MonthField, DayField, YearField } from "app/DateFields"
 // export default SignupForm
 
 export default function SignupForm() {
-  return null
+  return (
+    <div className="SignUpForm">
+      <input type="text" placeholder="Display Name"/>
+      <input type="text" placeholder="Avatar"/>
+      <input type="email" placeholder="Email"/>
+      <input type="password" placeholder="Password"/>
+      <TabsButton>Sign up!</TabsButton>
+    </div>
+  )
 }

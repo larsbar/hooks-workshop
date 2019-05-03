@@ -6,7 +6,8 @@ Day 1
 
 - Rendering and Components
 - State
-- Controlled Components
+- Controlled Components (Skipped)
+Lunch
 - Effects
 - Data Loading/subscriptions, custom hooks
 - Data flow, custom events

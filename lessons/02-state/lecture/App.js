@@ -1,5 +1,5 @@
 import "./styles.css"
-import React, { useState } from "react"
+import React, { useState } from "react" // allows us to take something static and make it dynamic
 import { FaMinus, FaPlus } from "react-icons/fa"
 
 /**********************************************************/
@@ -36,7 +36,7 @@ export default function Minutes() {
 // in the browser dev tools.
 
 // export default function Minutes() {
-//   const [minutes, setMinutes] = useState(5)
+//   const [minutes, setMinutes] = useState(5) // deconstructed
 
 //   const handleAdd = () => setMinutes(minutes + 1)
 //   const handleSubtract = () => setMinutes(minutes - 1)
@@ -63,6 +63,9 @@ export default function Minutes() {
 //     </div>
 //   )
 // }
+
+// React diffs through the object to see what changed to know what update to render on the page
+// Old function + new function = diif to render
 
 /**********************************************************/
 // We get to decide when to change state and when not to,
@@ -110,6 +113,8 @@ export default function Minutes() {
 // We can add multiple states, like an error state when they try to use an
 // invalid value. You can use && like an "if" inside of JSX
 
+// If you think about state first, everything in React gets a lot easier
+
 // export default function Minutes() {
 //   const [minutes, setMinutes] = useState(5)
 //   const [error, setError] = useState(null)
@@ -117,7 +122,7 @@ export default function Minutes() {
 //   const handleAdd = () => {
 //     if (minutes < 9) {
 //       setMinutes(minutes + 1)
-//       setError(null)
+//       setError(null) // If they have a valid number, clear out the error
 //     } else {
 //       setError("Less than 10 please.")
 //     }
@@ -126,7 +131,7 @@ export default function Minutes() {
 //   const handleSubtract = () => {
 //     if (minutes > 1) {
 //       setMinutes(minutes - 1)
-//       setError(null)
+//       setError(null) // If they have a valid number, clear out the error
 //     } else {
 //       setError("Greater than 0 please")
 //     }
@@ -237,3 +242,6 @@ export default function Minutes() {
 //   )
 // }
 
+// Any time anything happens, setState. That's the trick of React.
+// Create the state, hand it off to the React element, and React will syncronise it with the DOM for you
+// Wait for something to happen, set state.
